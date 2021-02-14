@@ -15,12 +15,11 @@ class Log {
         ofstream output;
         ifstream input;
         bool checkBinaryString(string);
-        string determineLogIdentifier();
     public:
         Log();
         Log(string);
-        void write(string);
-        void write(vector<bool>&);
+        void write(string, string);
+        void write(string, vector<bool>&);
 
 };
 
@@ -59,45 +58,19 @@ bool Log::checkBinaryString(string binaryString) {
     return true;
 }
 
-string Log::determineLogIdentifier() {
-    /*
-        Creates an identifier for a log entry using the current number of
-        lines in the Log object's log file.
-        All identifiers will start with "0x"
-        If the total line number of the file is less then 10, then identifier
-        is padded with an extra 0. 
-    */
-    int totalFileLines = 0;
-    string currentLine;
-    string identifier = "0x";
-    this->input.open(this->filename);
-    while (getline(this->input, currentLine)) {
-        if (!currentLine.empty()) {
-            totalFileLines++;
-        }
-    }
-    this->input.close();
-    if (totalFileLines < 10) {
-        identifier += "0";
-    }
-    identifier += to_string(totalFileLines);
-    return identifier;
-}
-
-void Log::write(string binaryString) {
+void Log::write(string identifier, string binaryString) {
     /*
         Writes binaryString with identifier logIdentifier to this->filename if
         and only if binaryString is a proper binary string.
     */
     if (checkBinaryString(binaryString)) {
-        string logIdentifier = determineLogIdentifier();
         this->output.open(this->filename, ofstream::app);
-        this->output << logIdentifier << " " << binaryString << endl;
+        this->output << identifier << " " << binaryString << endl;
         this->output.close();
     }
 }
 
-void Log::write(vector<bool>& binaryArray) {
+void Log::write(string identifier, vector<bool>& binaryArray) {
     /*
         Converts binaryArray to a binary string then passes binaryString to
         Log::write(string).
@@ -110,7 +83,7 @@ void Log::write(vector<bool>& binaryArray) {
             binaryString += "0";
         }
     }
-    write(binaryString);
+    write(identifier, binaryString);
 }
 
 #endif //LOG_H
