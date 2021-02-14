@@ -60,7 +60,7 @@ bool Log::checkBinaryString(string binaryString) {
 
 void Log::write(string identifier, string binaryString) {
     /*
-        Writes binaryString with identifier logIdentifier to this->filename if
+        Writes binaryString with identifier identifier to this->filename if
         and only if binaryString is a proper binary string.
     */
     if (checkBinaryString(binaryString)) {
