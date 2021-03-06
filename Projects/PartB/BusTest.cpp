@@ -40,12 +40,22 @@ string buildBinaryString(Bus& bus, int lineType) {
 }
 
 int main() {
+    cout << "Testing average usage of Bus:\n";
     srand(time(0));
     Bus bus;
     randomizeBusLines(bus);
     string line_types[] = {"address", "control", "data   "};
     for (int i = 0; i < LINE_COUNT; i++) {
         cout << line_types[i] << " : " << buildBinaryString(bus, i) << endl;
+    }
+
+    cout << "\nTesting index bounds:\n";
+    try {
+        bus[BUS_WIDTH * LINE_COUNT + 1];
+        cout << "This string should not print.";
+    }
+    catch (const char* error) {
+        cout << error << endl;
     }
 
     return 0;

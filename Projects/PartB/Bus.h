@@ -1,10 +1,6 @@
 #ifndef BUS_H
 #define BUS_H
 
-#include <fstream>
-#include <string>
-#include <vector>
-
 #define BUS_WIDTH 32
 #define LINE_COUNT 3
 
@@ -21,6 +17,7 @@ class Bus {
 };
 
 Bus::Bus() {
+    // Sets all bits in each line off.
     for (int i = 0; i < LINE_COUNT; i++) {
         for (int j = 0; j < BUS_WIDTH; j++) {
             lines[i][j] = false;
@@ -29,8 +26,9 @@ Bus::Bus() {
 }
 
 bool& Bus::operator [] (int index) {
+    // Access/flip an individual bit in a line.
     if (index < 0 || index > LINE_COUNT * BUS_WIDTH) {
-        throw "Out of bounds.";
+        throw "Index value given is out of bounds.";
     }
     int line_type = index / BUS_WIDTH;
     int bit = index % BUS_WIDTH;
