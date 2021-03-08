@@ -27,7 +27,7 @@ Bus::Bus() {
 
 bool& Bus::operator [] (int index) {
     // Access/flip an individual bit in a line.
-    if (index < 0 || index > LINE_COUNT * BUS_WIDTH) {
+    if (index < 0 || index >= LINE_COUNT * BUS_WIDTH) {
         throw "Index value given is out of bounds.";
     }
     int line_type = index / BUS_WIDTH;

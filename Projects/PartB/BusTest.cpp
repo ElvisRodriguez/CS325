@@ -51,7 +51,7 @@ int main() {
 
     cout << "\nTesting index bounds:\n";
     try {
-        bus[BUS_WIDTH * LINE_COUNT + 1];
+        bus[BUS_WIDTH * LINE_COUNT];
         cout << "This string should not print.";
     }
     catch (const char* error) {
